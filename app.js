@@ -1,72 +1,79 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
-let listaAmigosSorteados = [];
+let listaAmigos = [];
 
 function asignarTextoElemento(elemento, texto) {
   let elementoHtml = document.querySelector(elemento); //Acceder al elemento html
   elementoHtml.innerHTML = texto;
+  return;
 }
 
 function sortearAmigo() {
-  if (listaAmigosSorteados.length === 0) {
+  if (listaAmigos.length === 0) {
     alert("No hay amigos para sortear.");
-    return;
   }
   let amigoGenerado =
-    listaAmigosSorteados[
-      Math.floor(Math.random() * listaAmigosSorteados.length)
-    ];
+    listaAmigos[Math.floor(Math.random() * listaAmigos.length)];
 
-  console.log(listaAmigosSorteados);
+  console.log(listaAmigos);
   console.log(`El nombre elegido es: ${amigoGenerado}`);
 
   limpiarCaja("#listaAmigos");
-  agregarNombreALaLista(amigoGenerado, "resultado", "El amigo sorteado es: ");
+  // agregarNombreALaLista(amigoGenerado, "resultado", "El amigo sorteado es: ");
+  resultadoAmigoSorteado(amigoGenerado, "resultado");
+
   return;
   //asignarTextoElemento("h2", `El nombre elegido es: ${amigoGenerado}`);
 }
 
-// function resultadoAmigoSorteado(nombre, id) {
-//   // Seleccionar la lista
-//   const lista = document.getElementById(id);
+function resultadoAmigoSorteado(nombre, id) {
+  //Selecciona la lista
+  const lista = document.getElementById(id);
+  lista.innerHTML = ""; // Limpiar la lista
 
-//   // Crear un nuevo elemento <li>
-//   const nuevoElemento = document.createElement("li");
-//   nuevoElemento.textContent = "El amigo sorteado es: " + nombre; // Establecer el texto del <li>
+  /// Crea un nuevo elemento <li>
+  const nuevoElemento = document.createElement("li");
+  nuevoElemento.textContent = "El amigo sorteado es: " + nombre; // Establecer el texto del <li>
 
-//   // Agregar el <li> a la lista
-//   lista.appendChild(nuevoElemento);
-// }
+  // Agrega el <li> a la lista
+  lista.appendChild(nuevoElemento);
+  return;
+}
 
 function agregarAmigo() {
   let amigo = document.querySelector("#amigo").value;
-  if (listaAmigosSorteados.includes(amigo)) {
+  if (listaAmigos.includes(amigo)) {
     alert("Este nombre ya está en la lista");
-    return;
+    document.querySelector("#amigo").value = "";
   }
   if (amigo == "") {
     alert("Debes ingresar un nombre");
   } else {
-    listaAmigosSorteados.push(amigo);
+    listaAmigos.push(amigo);
+    document.querySelector("#amigo").value = "";
     asignarTextoElemento("h2", "Amigo agregado correctamente");
     agregarNombreALaLista(amigo, "listaAmigos");
-    limpiarCaja(`#amigo`);
-    console.log(listaAmigosSorteados);
+    limpiarCaja(`#resultado`);
+    console.log(listaAmigos);
   }
+
 }
 
-function agregarNombreALaLista(nombre, id, mensaje = "") {
+function agregarNombreALaLista(nombre, id) {
   // Seleccionar la lista
   const lista = document.getElementById(id);
-  // Crear un nuevo elemento <li>
+  //lista.innerHTML = "";
+  // Crea un nuevo elemento <li>
   const nuevoElemento = document.createElement("li");
-  nuevoElemento.textContent = mensaje + nombre;
+  nuevoElemento.textContent = nombre;
 
-  for (let index = 0; index < listaAmigosSorteados.length; index++) {
+  for (let index = 0; index < listaAmigos.length; index++) {
     lista.appendChild(nuevoElemento);
-  } // Establecer el texto del <li>
+  } // Establece el texto del <li>
 
-  // Agregar el <li> a la lista
+  return;
+
+  // Agrega el <li> a la lista
 }
 
 function limpiarCaja(id) {
